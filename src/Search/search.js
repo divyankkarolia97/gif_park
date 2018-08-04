@@ -16,10 +16,7 @@ const SEARCH_URL = 'https://api.giphy.com/v1/gifs/search?api_key=KGWuif7SMlEV5M6
 
 const styles = theme => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      flex:1,
+      height:'100%',
       overflow: 'hidden',
     },
     gridList: {
@@ -58,7 +55,7 @@ class Random extends Component{
 
     componentWillReceiveProps(){
         this.setState({isLoading:true})
-        let cols = window.innerWidth<500?2:4;
+        let cols = window.innerWidth<500?1:4;
         fetch(SEARCH_URL+this.context.router.history.location.pathname.split('/')[2])
         .then(response=>response.json())
         .then(resJson=>this.setState({
@@ -81,7 +78,7 @@ class Random extends Component{
         return (
           <React.Fragment>
                 <div className={classes.root}>
-                <GridList cellHeight={160} className={classes.gridList} cols={this.state.cols}>
+                <GridList cellHeight={250} className={classes.gridList} cols={this.state.cols}>
                 {this.state.data.data.map(tile => (
                     <GridListTile key={tile.images.original.url} cols={1}>
                     <img src={tile.images.original.url}/>

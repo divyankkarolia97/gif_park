@@ -55,7 +55,9 @@ class Header extends Component{
   }
   backOnClick(event) {
     event.preventDefault();
-    this.context.router.history.goBack();
+    if(this.context.router.history.location.pathname.split('/')[1]!==''){
+      this.context.router.history.goBack();
+    }
   }
 
   render(){
@@ -63,11 +65,11 @@ class Header extends Component{
         return (
             <AppBar position="static" color="secondary">
               <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit">
+                <IconButton className={classes.menuButton} color="inherit"  onClick={this.backOnClick.bind(this)}>
                 
                 {this.context.router.history.location.pathname.split('/')[1] == ""?
                 <CameraRollIcon />:
-                <ArrowBack onClick={this.backOnClick.bind(this)}/>}
+                <ArrowBack/>}
                 </IconButton>
                 
                 {!this.state.search?
@@ -83,16 +85,13 @@ class Header extends Component{
                 innerRef={text_ref=>this.text_ref=text_ref}
                 />
                 }
-
+                <IconButton color="inherit" onClick={this.handleSearch.bind(this)}>
                 {!this.state.search?
-                <IconButton color="inherit">
-                  <Search onClick={this.handleSearch.bind(this)}/>
-                </IconButton>:
-                <IconButton color="inherit">
-                  <Cancel onClick={this.handleSearch.bind(this)}/>
-                </IconButton>
+                  <Search />:
+                  <Cancel />
                 }
-
+                </IconButton>
+                
               </Toolbar>
             </AppBar>
          )

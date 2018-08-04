@@ -8,10 +8,30 @@ import Search from './Search/search'
 import { Typography } from '@material-ui/core';
 
 class App extends Component {
+  constructor(){
+    super()
+    this.updateDimensions = this.updateDimensions.bind(this);
+    this.state = {
+      height:window.innerHeight,
+    }
+  }
+
+  updateDimensions() {
+    this.setState({ height: window.innerHeight });
+  }
+  componentWillMount() {
+      this.updateDimensions();
+  }
+  componentDidMount() {
+      window.addEventListener("resize", this.updateDimensions);
+  }
+  componentWillUnmount() {
+      window.removeEventListener("resize", this.updateDimensions);
+  }
 
   render() {
     return (
-      <div style={{ display: 'flex', flexFlow: 'column',backgroundColor:'#000', height:window.innerHeight}}>
+      <div style={{ display: 'flex', flexFlow: 'column',backgroundColor:'#000', height:this.state.height}}>
           <Header App={this}/>
           <div style={{ flex: 1, overflow: 'hidden' }}>
             <div style={{ display: 'flex', flexFlow: 'column', height: '100%' }}>     

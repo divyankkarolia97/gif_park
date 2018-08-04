@@ -10,10 +10,7 @@ const TRENDING_URL = 'https://api.giphy.com/v1/gifs/trending?api_key=KGWuif7SMlE
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    flex:'1',
+    height:'100%',
     overflow: 'hidden',
   },
   gridList: {
@@ -34,7 +31,7 @@ class Trending extends Component{
         }
     }
     componentWillMount(){
-        let cols = window.innerWidth<500?2:4;
+        let cols = window.innerWidth<500?1:4;
         fetch(TRENDING_URL)
         .then(response=>response.json())
         .then(resJson=>this.setState({
@@ -54,7 +51,7 @@ class Trending extends Component{
         return(
             <div className={classes.root}>
                 <Typography style={{textAlign:'center',color:'#FFF'}}>#TRENDING</Typography>
-                <GridList cellHeight={160} className={classes.gridList} cols={this.state.cols}>
+                <GridList cellHeight={250} className={classes.gridList} cols={this.state.cols}>
                 {this.state.data.data.map(tile => (
                     <GridListTile key={tile.images.original.url} cols={1}>
                     <img src={tile.images.original.url}/>
